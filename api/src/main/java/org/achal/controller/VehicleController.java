@@ -2,6 +2,7 @@ package org.achal.controller;
 
 import org.achal.entity.Vehicle;
 import org.achal.service.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +13,8 @@ import java.util.List;
 @CrossOrigin(origins = "http://mocker.egen.academy/")
 public class VehicleController {
 
-    VehicleService vehicleService;
+    @Autowired
+    private VehicleService vehicleService;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Vehicle> findAll() {
