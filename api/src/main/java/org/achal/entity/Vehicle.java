@@ -1,9 +1,14 @@
 package org.achal.entity;
 
-import java.util.UUID;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Vehicle {
+    @Id
     String vin;
+
     String make;
     String model;
     int year;
