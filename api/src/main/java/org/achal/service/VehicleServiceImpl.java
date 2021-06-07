@@ -9,22 +9,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class VehicleServiceImpl implements VehicleService{
+public class VehicleServiceImpl implements VehicleService {
 
     @Autowired
     private VehicleRepository vehicleRepository;
 
     @Override
     public List<Vehicle> findAll() {
-        return null;
+        return vehicleRepository.findAll();
     }
 
     @Override
     public Vehicle findOne(String id) {
         Vehicle vehicle = vehicleRepository.findOne(id);
-        if(vehicle == null){
-            throw new VehicleNotFoundException("Vehicle with id="+id+" NOT FOUND");
-        }else{
+        if (vehicle == null) {
+            throw new VehicleNotFoundException("Vehicle with id=" + id + " NOT FOUND");
+        } else {
             return vehicle;
         }
     }
