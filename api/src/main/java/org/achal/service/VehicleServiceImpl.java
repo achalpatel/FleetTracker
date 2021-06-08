@@ -5,6 +5,7 @@ import org.achal.exception.VehicleNotFoundException;
 import org.achal.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,16 +31,19 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    @Transactional
     public Vehicle create(Vehicle vehicle) {
         return null;
     }
 
     @Override
+    @Transactional
     public Vehicle update(String id, Vehicle vehicle) {
         return null;
     }
 
     @Override
+    @Transactional
     public void delete(String id) {
 
     }
