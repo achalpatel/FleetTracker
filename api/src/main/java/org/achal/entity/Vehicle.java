@@ -1,11 +1,13 @@
 package org.achal.entity;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Vehicle.findOne", query = "SELECT veh FROM Vehicle veh WHERE veh.vin = :id"),
+        @NamedQuery(name = "Vehicle.findAll", query = "SELECT veh FROM Vehicle veh")
+})
 public class Vehicle {
     @Id
     @Column(columnDefinition = "VARCHAR(36)")

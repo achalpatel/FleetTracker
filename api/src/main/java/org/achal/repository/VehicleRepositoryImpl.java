@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -15,12 +16,13 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 
     @Override
     public List<Vehicle> findAll() {
-        return null;
+        TypedQuery<Vehicle> query = em.createNamedQuery("Vehicle.findAll", Vehicle.class);
+        return query.getResultList();
     }
 
     @Override
     public Vehicle findOne(String id) {
-        return null;
+        return em.find(Vehicle.class, id);
     }
 
     @Override
@@ -36,6 +38,6 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 
     @Override
     public void delete(String id) {
-
+        em.remove(id);
     }
 }
