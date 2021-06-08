@@ -1,7 +1,12 @@
 package org.achal.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @NamedQueries({
@@ -13,17 +18,21 @@ public class Vehicle {
     @Column(columnDefinition = "VARCHAR(36)")
     String vin;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    LocalDateTime lastServiceDate;
+
     String make;
     String model;
     int year;
     float redLineRpm;
     float maxFuelVolume;
-    String lastServiceDate;
+
+
 
     public Vehicle() {
     }
 
-    public Vehicle(String vin, String make, String model, int year, float redLineRpm, float maxFuelVolume, String lastServiceDate) {
+    public Vehicle(String vin, String make, String model, int year, float redLineRpm, float maxFuelVolume, LocalDateTime lastServiceDate) {
         this.vin = vin;
         this.make = make;
         this.model = model;
@@ -81,11 +90,11 @@ public class Vehicle {
         this.maxFuelVolume = maxFuelVolume;
     }
 
-    public String getLastServiceDate() {
+    public LocalDateTime getLastServiceDate() {
         return lastServiceDate;
     }
 
-    public void setLastServiceDate(String lastServiceDate) {
+    public void setLastServiceDate(LocalDateTime lastServiceDate) {
         this.lastServiceDate = lastServiceDate;
     }
 }

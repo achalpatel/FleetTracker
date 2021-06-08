@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@ResponseBody
 @RequestMapping(value = "vehicles")
 @CrossOrigin(origins = "http://mocker.egen.academy/")
 public class VehicleController {

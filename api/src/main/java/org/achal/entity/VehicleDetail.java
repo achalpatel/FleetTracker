@@ -1,9 +1,12 @@
 package org.achal.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -15,9 +18,14 @@ public class VehicleDetail {
     @ManyToOne
     Vehicle vehicle;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    LocalDateTime timestamp;
+
+    @OneToOne
+    Tire tires;
+
     String latitude;
     String longitude;
-    String timestamp;
     float fuelVolume;
     float speed;
     float engineHp;
@@ -26,14 +34,12 @@ public class VehicleDetail {
     boolean cruiseControlOn;
     float engineRpm;
 
-    @OneToOne
-    Tire tire;
 
     public VehicleDetail() {
         id = UUID.randomUUID().toString();
     }
 
-    public VehicleDetail(Vehicle vehicle, String latitude, String longitude, String timestamp, float fuelVolume, float speed, float engineHp, boolean checkEngineLightOn, boolean engineCoolantLow, boolean cruiseControlOn, float engineRpm, Tire tire) {
+    public VehicleDetail(Vehicle vehicle, String latitude, String longitude, LocalDateTime timestamp, float fuelVolume, float speed, float engineHp, boolean checkEngineLightOn, boolean engineCoolantLow, boolean cruiseControlOn, float engineRpm, Tire tires) {
         this.vehicle = vehicle;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -45,7 +51,7 @@ public class VehicleDetail {
         this.engineCoolantLow = engineCoolantLow;
         this.cruiseControlOn = cruiseControlOn;
         this.engineRpm = engineRpm;
-        this.tire = tire;
+        this.tires = tires;
     }
 
     public Vehicle getVin() {
@@ -72,11 +78,11 @@ public class VehicleDetail {
         this.longitude = longitude;
     }
 
-    public String getTimestamp() {
+    public LocalDateTime getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -136,11 +142,11 @@ public class VehicleDetail {
         this.engineRpm = engineRpm;
     }
 
-    public Tire getTire() {
-        return tire;
+    public Tire getTires() {
+        return tires;
     }
 
-    public void setTire(Tire tire) {
-        this.tire = tire;
+    public void setTires(Tire tire) {
+        this.tires = tire;
     }
 }
