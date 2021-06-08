@@ -26,12 +26,12 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     @Override
     public Vehicle create(Vehicle vehicle) {
         em.persist(vehicle);
-        return null;
+        return vehicle;
     }
 
     @Override
-    public Vehicle update(String id, Vehicle vehicle) {
-        return null;
+    public Vehicle update(Vehicle vehicle) {
+        return em.merge(vehicle);
     }
 
     @Override
