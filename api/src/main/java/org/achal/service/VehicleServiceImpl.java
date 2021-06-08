@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,4 +48,25 @@ public class VehicleServiceImpl implements VehicleService {
     public void delete(String id) {
 
     }
+
+    @Override
+    @Transactional
+    public List<Vehicle> addVehicles(List<Vehicle> vehicleList){
+        List<Vehicle> updatedVehicleList = new ArrayList<>();
+        for(Vehicle v : vehicleList){
+            updatedVehicleList.add(put(v));
+        }
+        return updatedVehicleList;
+    }
+
+    @Transactional
+    public Vehicle put(Vehicle vehicle){
+        try{
+            findOne(vehicle.getVin());
+            return update(vehicle.getVin(), vehicle);
+        }catch (VehicleNotFoundException exception){
+            return create(vehicle);
+        }
+    }
+
 }

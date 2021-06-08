@@ -31,6 +31,11 @@ public class VehicleController {
         return vehicle;
     }
 
+    @RequestMapping(method = RequestMethod.PUT)
+    public List<Vehicle> addVehicles(@RequestBody  List<Vehicle> vehicles){
+        return vehicleService.addVehicles(vehicles);
+    }
+
     @RequestMapping(method = RequestMethod.PUT, value = "{id}")
     public Vehicle update(@PathVariable("id") String id, Vehicle vehicle) {
         return vehicle;

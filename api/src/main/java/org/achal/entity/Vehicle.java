@@ -1,8 +1,6 @@
 package org.achal.entity;
 
 
-import com.mysql.cj.protocol.ColumnDefinition;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;

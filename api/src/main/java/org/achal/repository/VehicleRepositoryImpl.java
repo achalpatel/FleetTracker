@@ -22,4 +22,19 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     public Vehicle findOne(String id) {
         return null;
     }
+
+    @Override
+    public Vehicle create(Vehicle vehicle) {
+        return null;
+    }
+
+    @Override
+    public Vehicle update(String id, Vehicle vehicle) {
+        return null;
+    }
+
+    @Override
+    public void delete(String id) {
+
+    }
 }

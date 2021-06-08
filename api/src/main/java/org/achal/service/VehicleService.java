@@ -11,4 +11,5 @@ public interface VehicleService {
     Vehicle create(Vehicle vehicle);
     Vehicle update(String id, Vehicle vehicle);
     void delete(String id);
+    List<Vehicle> addVehicles(List<Vehicle> vehicleList);
 }

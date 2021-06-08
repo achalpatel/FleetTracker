@@ -7,4 +7,7 @@ import java.util.List;
 public interface VehicleRepository {
     List<Vehicle> findAll();
     Vehicle findOne(String id);
+    Vehicle create(Vehicle vehicle);
+    Vehicle update(String id, Vehicle vehicle);
+    public void delete(String id);
 }
