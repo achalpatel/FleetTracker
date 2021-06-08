@@ -46,7 +46,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Transactional
     public Vehicle update(String id, Vehicle vehicle) {
         Vehicle v = vehicleRepository.findOne(id);
-        if (v == null) {
+        if (v == null || !id.equals(vehicle.getVin())) {
             throw new VehicleNotFoundException("Vehicle with id=" + id + " DOES NOT EXISTS");
         }
         return vehicleRepository.update(vehicle);
@@ -55,7 +55,11 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     @Transactional
     public void delete(String id) {
-        vehicleRepository.delete(id);
+        Vehicle v = vehicleRepository.findOne(id);
+        if(v == null){
+            throw new VehicleNotFoundException("Vehicle with id=" + id + " DOES NOT EXISTS");
+        }
+        vehicleRepository.delete(v);
     }
 
     @Override
@@ -70,9 +74,9 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Transactional
     public Vehicle put(Vehicle vehicle) {
-        try{
-            return vehicleRepository.create(vehicle);
-        }catch(BadRequestException exception){
+        try {
+            return create(vehicle);
+        } catch (BadRequestException exception) {
             return vehicleRepository.update(vehicle);
         }
     }

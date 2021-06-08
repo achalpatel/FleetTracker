@@ -9,5 +9,5 @@ public interface VehicleRepository {
     Vehicle findOne(String id);
     Vehicle create(Vehicle vehicle);
     Vehicle update(Vehicle vehicle);
-    public void delete(String id);
+    public void delete(Vehicle vehicle);
 }

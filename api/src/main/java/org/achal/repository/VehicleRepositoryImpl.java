@@ -37,7 +37,7 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     }
 
     @Override
-    public void delete(String id) {
-        em.remove(id);
+    public void delete(Vehicle vehicle) {
+        em.remove(vehicle);
     }
 }

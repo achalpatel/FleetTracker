@@ -37,12 +37,12 @@ public class VehicleController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "{id}")
-    public Vehicle update(@PathVariable("id") String id, Vehicle vehicle) {
-        return vehicle;
+    public Vehicle update(@PathVariable("id") String id, @RequestBody Vehicle vehicle) {
+        return vehicleService.update(id, vehicle);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "{id}")
     public void delete(@PathVariable("id") String id) {
-
+        vehicleService.delete(id);
     }
 }
