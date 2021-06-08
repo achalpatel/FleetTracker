@@ -25,6 +25,7 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 
     @Override
     public Vehicle create(Vehicle vehicle) {
+        em.persist(vehicle);
         return null;
     }
 
