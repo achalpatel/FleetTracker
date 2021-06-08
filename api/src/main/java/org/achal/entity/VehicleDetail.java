@@ -1,40 +1,59 @@
 package org.achal.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import java.util.UUID;
+
+@Entity
 public class VehicleDetail {
-    String vin;
+
+    @Id
+    String id;
+
+    @ManyToOne
+    Vehicle vehicle;
+
     String latitude;
     String longitude;
     String timestamp;
     float fuelVolume;
     float speed;
     float engineHp;
-    boolean checkEngineLigthOn;
+    boolean checkEngineLightOn;
     boolean engineCoolantLow;
     boolean cruiseControlOn;
     float engineRpm;
+
+    @OneToOne
     Tire tire;
 
-    public VehicleDetail(String vin, String latitude, String longitude, String timestamp, float fuelVolume, float speed, float engineHp, boolean checkEngineLigthOn, boolean engineCoolantLow, boolean cruiseControlOn, float engineRpm, Tire tire) {
-        this.vin = vin;
+    public VehicleDetail() {
+        id = UUID.randomUUID().toString();
+    }
+
+    public VehicleDetail(Vehicle vehicle, String latitude, String longitude, String timestamp, float fuelVolume, float speed, float engineHp, boolean checkEngineLightOn, boolean engineCoolantLow, boolean cruiseControlOn, float engineRpm, Tire tire) {
+        this.vehicle = vehicle;
         this.latitude = latitude;
         this.longitude = longitude;
         this.timestamp = timestamp;
         this.fuelVolume = fuelVolume;
         this.speed = speed;
         this.engineHp = engineHp;
-        this.checkEngineLigthOn = checkEngineLigthOn;
+        this.checkEngineLightOn = checkEngineLightOn;
         this.engineCoolantLow = engineCoolantLow;
         this.cruiseControlOn = cruiseControlOn;
         this.engineRpm = engineRpm;
         this.tire = tire;
     }
 
-    public String getVin() {
-        return vin;
+    public Vehicle getVin() {
+        return vehicle;
     }
 
-    public void setVin(String vin) {
-        this.vin = vin;
+    public void setVin(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 
     public String getLatitude() {
@@ -85,12 +104,12 @@ public class VehicleDetail {
         this.engineHp = engineHp;
     }
 
-    public boolean isCheckEngineLigthOn() {
-        return checkEngineLigthOn;
+    public boolean isCheckEngineLightOn() {
+        return checkEngineLightOn;
     }
 
-    public void setCheckEngineLigthOn(boolean checkEngineLigthOn) {
-        this.checkEngineLigthOn = checkEngineLigthOn;
+    public void setCheckEngineLightOn(boolean checkEngineLigthOn) {
+        this.checkEngineLightOn = checkEngineLigthOn;
     }
 
     public boolean isEngineCoolantLow() {

@@ -1,11 +1,22 @@
 package org.achal.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.util.UUID;
 
+@Entity
 public class Tire {
+    @Id
+    String id;
+
     float frontLeft;
     float frontRight;
     float rearLeft;
     float rearRight;
+
+    public Tire() {
+        id = UUID.randomUUID().toString();
+    }
 
     public Tire(float frontLeft, float frontRight, float rearLeft, float rearRight) {
         this.frontLeft = frontLeft;
