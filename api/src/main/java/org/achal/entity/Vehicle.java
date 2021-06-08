@@ -1,12 +1,16 @@
 package org.achal.entity;
 
 
+import com.mysql.cj.protocol.ColumnDefinition;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
 public class Vehicle {
     @Id
+    @Column(columnDefinition = "VARCHAR(36)")
     String vin;
 
     String make;

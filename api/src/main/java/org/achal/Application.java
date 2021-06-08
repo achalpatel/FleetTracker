@@ -12,8 +12,6 @@ import javax.persistence.Persistence;
 @EnableWebMvc
 public class Application {
     public static void main(String[] args) {
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("fleet");
 
-        entityManagerFactory.close();
     }
 }
