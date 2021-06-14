@@ -46,9 +46,7 @@ public class VehicleDetailService {
             throw new BadRequestException("Vehicle with vin=" + vin + " NOT FOUND");
         }
         try {
-            obj.put("vin", vehicle.toString());
-            String jsonString = obj.toString();
-            VehicleDetail vehicleDetail = objectMapper.readValue(jsonString, VehicleDetail.class);
+            VehicleDetail vehicleDetail = objectMapper.readValue(obj.toString(), VehicleDetail.class);
             vehicleDetail.setVin(vehicle);
             vehicle.getVehicleDetailList().add(vehicleDetail);
             VehicleDetail responseObj = vehicleDetailRepo.create(vehicleDetail);
