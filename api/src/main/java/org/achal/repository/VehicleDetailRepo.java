@@ -1,6 +1,5 @@
 package org.achal.repository;
 
-import org.achal.entity.Vehicle;
 import org.achal.entity.VehicleDetail;
 import org.springframework.stereotype.Repository;
 
