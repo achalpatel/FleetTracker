@@ -56,4 +56,15 @@ public class Tire {
     public void setRearRight(float rearRight) {
         this.rearRight = rearRight;
     }
+
+    @Override
+    public String toString() {
+        return "{  " +
+                "  id:" + id +
+                ", frontLeft:" + frontLeft +
+                ", frontRight:" + frontRight +
+                ", rearLeft:" + rearLeft +
+                ", rearRight:" + rearRight +
+                '}';
+    }
 }

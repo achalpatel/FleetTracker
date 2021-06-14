@@ -40,4 +40,9 @@ public class VehicleRepositoryImpl implements VehicleRepository {
     public void delete(Vehicle vehicle) {
         em.remove(vehicle);
     }
+
+    @Override
+    public Vehicle getReference(String id) {
+        return em.getReference(Vehicle.class, id);
+    }
 }
