@@ -13,10 +13,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@NamedQueries({
-        @NamedQuery(name = "Vehicle.findOne", query = "SELECT veh FROM Vehicle veh WHERE veh.vin = :id"),
-        @NamedQuery(name = "Vehicle.findAll", query = "SELECT veh FROM Vehicle veh")
-})
 public class Vehicle {
     @Id
     @Column(columnDefinition = "VARCHAR(36)")

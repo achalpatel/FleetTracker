@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 @Service
 public class VehicleDetailService {
@@ -41,14 +43,14 @@ public class VehicleDetailService {
     public String create(String body) {
         JSONObject obj = new JSONObject(body);
         String vin = (String) obj.get("vin");
-        Vehicle vehicle = vehicleRepository.findOne(vin);
-        if(vehicle==null){
+        Optional<Vehicle> vehicle = vehicleRepository.findById(vin);
+        if(!vehicle.isPresent()){
             throw new BadRequestException("Vehicle with vin=" + vin + " NOT FOUND");
         }
         try {
             VehicleDetail vehicleDetail = objectMapper.readValue(obj.toString(), VehicleDetail.class);
-            vehicleDetail.setVin(vehicle);
-            vehicle.getVehicleDetailList().add(vehicleDetail);
+            vehicleDetail.setVin(vehicle.get());
+            vehicle.get().getVehicleDetailList().add(vehicleDetail);
             VehicleDetail responseObj = vehicleDetailRepo.create(vehicleDetail);
             if (responseObj == null) {
                 return "{}";

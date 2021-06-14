@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class VehicleServiceImpl implements VehicleService {
@@ -19,66 +20,54 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public List<Vehicle> findAll() {
-        return vehicleRepository.findAll();
+        return (List<Vehicle>) vehicleRepository.findAll();
     }
 
     @Override
     public Vehicle findOne(String id) {
-        Vehicle vehicle = vehicleRepository.findOne(id);
-        if (vehicle == null) {
+        Optional<Vehicle> vehicle = vehicleRepository.findById(id);
+        if (!vehicle.isPresent()) {
             throw new VehicleNotFoundException("Vehicle with id=" + id + " NOT FOUND");
-        } else {
-            return vehicle;
         }
+        return vehicle.get();
     }
 
     @Override
     @Transactional
     public Vehicle create(Vehicle vehicle) {
-        Vehicle v = vehicleRepository.findOne(vehicle.getVin());
-        if (v != null) {
+        Optional<Vehicle> v = vehicleRepository.findById(vehicle.getVin());
+        if (v.isPresent()) {
             throw new BadRequestException("Vehicle with id=" + vehicle.getVin() + " ALREADY EXISTS");
         }
-        return vehicleRepository.create(vehicle);
+        return vehicleRepository.save(vehicle);
     }
 
     @Override
     @Transactional
     public Vehicle update(String id, Vehicle vehicle) {
-        Vehicle v = vehicleRepository.findOne(id);
-        if (v == null || !id.equals(vehicle.getVin())) {
+        if(!id.equals(vehicle.getVin())){
+            throw new BadRequestException("id:"+ id +" DOES NOT MATCH vehicle.vin:"+ vehicle.getVin());
+        }
+        Optional<Vehicle> v = vehicleRepository.findById(id);
+        if(!v.isPresent()){
             throw new VehicleNotFoundException("Vehicle with id=" + id + " DOES NOT EXISTS");
         }
-        return vehicleRepository.update(vehicle);
+        return vehicleRepository.save(vehicle);
     }
 
     @Override
     @Transactional
     public void delete(String id) {
-        Vehicle v = vehicleRepository.findOne(id);
-        if(v == null){
+        Optional<Vehicle> v = vehicleRepository.findById(id);
+        if(!v.isPresent()){
             throw new VehicleNotFoundException("Vehicle with id=" + id + " DOES NOT EXISTS");
         }
-        vehicleRepository.delete(v);
+        vehicleRepository.delete(v.get());
     }
 
     @Override
     @Transactional
     public List<Vehicle> addVehicles(List<Vehicle> vehicleList) {
-        List<Vehicle> updatedVehicleList = new ArrayList<>();
-        for (Vehicle v : vehicleList) {
-            updatedVehicleList.add(put(v));
-        }
-        return updatedVehicleList;
+        return (List<Vehicle>) vehicleRepository.saveAll(vehicleList);
     }
-
-    @Transactional
-    public Vehicle put(Vehicle vehicle) {
-        try {
-            return create(vehicle);
-        } catch (BadRequestException exception) {
-            return vehicleRepository.update(vehicle);
-        }
-    }
-
 }

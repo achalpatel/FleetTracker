@@ -1,14 +1,9 @@
 package org.achal.repository;
 
 import org.achal.entity.Vehicle;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface VehicleRepository {
-    List<Vehicle> findAll();
-    Vehicle findOne(String id);
-    Vehicle create(Vehicle vehicle);
-    Vehicle update(Vehicle vehicle);
-    void delete(Vehicle vehicle);
-    Vehicle getReference(String id);
+public interface VehicleRepository extends CrudRepository<Vehicle, String> {
 }
