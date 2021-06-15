@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,11 +44,11 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     @Transactional
     public Vehicle update(String id, Vehicle vehicle) {
-        if(!id.equals(vehicle.getVin())){
-            throw new BadRequestException("id:"+ id +" DOES NOT MATCH vehicle.vin:"+ vehicle.getVin());
+        if (!id.equals(vehicle.getVin())) {
+            throw new BadRequestException("id:" + id + " DOES NOT MATCH vehicle.vin:" + vehicle.getVin());
         }
         Optional<Vehicle> v = vehicleRepository.findById(id);
-        if(!v.isPresent()){
+        if (!v.isPresent()) {
             throw new VehicleNotFoundException("Vehicle with id=" + id + " DOES NOT EXISTS");
         }
         return vehicleRepository.save(vehicle);
@@ -59,7 +58,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Transactional
     public void delete(String id) {
         Optional<Vehicle> v = vehicleRepository.findById(id);
-        if(!v.isPresent()){
+        if (!v.isPresent()) {
             throw new VehicleNotFoundException("Vehicle with id=" + id + " DOES NOT EXISTS");
         }
         vehicleRepository.delete(v.get());

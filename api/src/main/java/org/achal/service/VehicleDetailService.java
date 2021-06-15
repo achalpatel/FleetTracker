@@ -27,12 +27,12 @@ public class VehicleDetailService {
 
     @Transactional
     public String findOne(String id) {
-        VehicleDetail vd = vehicleDetailRepo.findOne(id);
-        if(vd==null){
+        Optional<VehicleDetail> vd = vehicleDetailRepo.findById(id);
+        if(!vd.isPresent()){
             return "{}";
         }
         try {
-            return objectMapper.writeValueAsString(vd);
+            return objectMapper.writeValueAsString(vd.get());
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "{}";
@@ -51,12 +51,8 @@ public class VehicleDetailService {
             VehicleDetail vehicleDetail = objectMapper.readValue(obj.toString(), VehicleDetail.class);
             vehicleDetail.setVin(vehicle.get());
             vehicle.get().getVehicleDetailList().add(vehicleDetail);
-            VehicleDetail responseObj = vehicleDetailRepo.create(vehicleDetail);
-            if (responseObj == null) {
-                return "{}";
-            } else {
-                return objectMapper.writeValueAsString(responseObj);
-            }
+            VehicleDetail responseObj = vehicleDetailRepo.save(vehicleDetail);
+            return objectMapper.writeValueAsString(responseObj);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             return "{}";

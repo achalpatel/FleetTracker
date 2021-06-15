@@ -44,12 +44,18 @@
       <version>20210307</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
     <!--  Because of JAXBException class not found  -->
     <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
       <version>2.3.1</version>
+    </dependency>
+
+    <!--Rules&Alerts-->
+    <dependency>
+      <groupId>org.jeasy</groupId>
+      <artifactId>easy-rules-core</artifactId>
+      <version>4.1.0</version>
     </dependency>
 
   </dependencies>
