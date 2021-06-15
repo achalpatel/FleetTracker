@@ -1,6 +1,7 @@
 package org.achal.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -29,9 +30,15 @@ public class Vehicle {
     float redLineRpm;
     float maxFuelVolume;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "vin")
     List<VehicleDetail> vehicleDetailList;
+
+    @JsonCreator
+    public Vehicle(String vin){
+        this.vin = vin;
+    }
+
 
     public Vehicle() {
     }
@@ -110,16 +117,16 @@ public class Vehicle {
     public void setVehicleDetailList(List<VehicleDetail> vehicleDetailList) {
         this.vehicleDetailList = vehicleDetailList;
     }
-
-    @Override
-    public String toString() {
-        return "{  vin:" + vin +
-                ", lastServiceDate:" + lastServiceDate +
-                ", make:" + make +
-                ", model:" + model +
-                ", year:" + year +
-                ", redLineRpm:" + redLineRpm +
-                ", maxFuelVolume:" + maxFuelVolume +
-                "}";
-    }
+//
+//    @Override
+//    public String toString() {
+//        return "{  vin:" + vin +
+//                ", lastServiceDate:" + lastServiceDate +
+//                ", make:" + make +
+//                ", model:" + model +
+//                ", year:" + year +
+//                ", redLineRpm:" + redLineRpm +
+//                ", maxFuelVolume:" + maxFuelVolume +
+//                "}";
+//    }
 }

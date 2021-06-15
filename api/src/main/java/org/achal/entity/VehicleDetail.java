@@ -2,6 +2,7 @@ package org.achal.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -18,8 +19,9 @@ public class VehicleDetail {
     @Id
     String id;
 
-    @JsonIgnore
-    @ManyToOne
+//    @JsonIgnore
+    @JsonProperty("vin")
+    @ManyToOne(fetch=FetchType.LAZY)
     Vehicle vin;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
@@ -166,22 +168,22 @@ public class VehicleDetail {
         this.tires = tire;
     }
 
-    @Override
-    public String toString() {
-        return "{ " + "\n" +
-                "  id:" + id + "\n" +
-                ", vin:" + vin.getVin() + "\n" +
-                ", timestamp:" + timestamp + "\n" +
-                ", tires:" + tires + "\n" +
-                ", latitude:" + latitude + "\n" +
-                ", longitude:" + longitude + "\n" +
-                ", fuelVolume:" + fuelVolume + "\n" +
-                ", speed:" + speed + "\n" +
-                ", engineHp:" + engineHp + "\n" +
-                ", checkEngineLightOn:" + checkEngineLightOn + "\n" +
-                ", engineCoolantLow:" + engineCoolantLow + "\n" +
-                ", cruiseControlOn:" + cruiseControlOn + "\n" +
-                ", engineRpm:" + engineRpm + "\n" +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "{ " + "\n" +
+//                "  id:" + id + "\n" +
+//                ", vin:" + vin.getVin() + "\n" +
+//                ", timestamp:" + timestamp + "\n" +
+//                ", tires:" + tires + "\n" +
+//                ", latitude:" + latitude + "\n" +
+//                ", longitude:" + longitude + "\n" +
+//                ", fuelVolume:" + fuelVolume + "\n" +
+//                ", speed:" + speed + "\n" +
+//                ", engineHp:" + engineHp + "\n" +
+//                ", checkEngineLightOn:" + checkEngineLightOn + "\n" +
+//                ", engineCoolantLow:" + engineCoolantLow + "\n" +
+//                ", cruiseControlOn:" + cruiseControlOn + "\n" +
+//                ", engineRpm:" + engineRpm + "\n" +
+//                '}';
+//    }
 }
