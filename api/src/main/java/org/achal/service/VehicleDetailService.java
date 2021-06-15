@@ -27,6 +27,9 @@ public class VehicleDetailService {
     @Autowired
     private TireRepo tireRepo;
 
+    @Autowired
+    private VehicleRepository vehicleRepository;
+
     @Transactional
     public String findOne(String id) {
         Optional<VehicleDetail> vd = vehicleDetailRepo.findById(id);
@@ -42,25 +45,24 @@ public class VehicleDetailService {
     }
 
     @Transactional
-    public VehicleDetail create(VehicleDetail vd) {
-        Tire tire = vd.getTires();
-        tireRepo.save(tire);
-        return vehicleDetailRepo.save(vd);
-//        JSONObject obj = new JSONObject(body);
-//        String vin = (String) obj.get("vin");
-//        Optional<Vehicle> vehicle = vehicleRepository.findById(vin);
-//        if(!vehicle.isPresent()){
-//            throw new BadRequestException("Vehicle with vin=" + vin + " NOT FOUND");
-//        }
-//        try {
-//            VehicleDetail vehicleDetail = objectMapper.readValue(obj.toString(), VehicleDetail.class);
-//            vehicleDetail.setVin(vehicle.get());
-//            vehicle.get().getVehicleDetailList().add(vehicleDetail);
-//            VehicleDetail responseObj = vehicleDetailRepo.save(vehicleDetail);
-//            return objectMapper.writeValueAsString(responseObj);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//            return "{}";
-//        }
+    public String create(String body) {
+        JSONObject obj = new JSONObject(body);
+        String vin = (String) obj.get("vin");
+        Optional<Vehicle> vehicle = vehicleRepository.findById(vin);
+        if(!vehicle.isPresent()){
+            throw new BadRequestException("Vehicle with vin=" + vin + " NOT FOUND");
+        }
+        try {
+            VehicleDetail vehicleDetail = objectMapper.readValue(obj.toString(), VehicleDetail.class);
+            vehicleDetail.setVin(vehicle.get());
+            Tire tire = vehicleDetail.getTires();
+            tireRepo.save(tire);
+            vehicle.get().getVehicleDetailList().add(vehicleDetail);
+            VehicleDetail responseObj = vehicleDetailRepo.save(vehicleDetail);
+            return objectMapper.writeValueAsString(responseObj);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return "{}";
+        }
     }
 }

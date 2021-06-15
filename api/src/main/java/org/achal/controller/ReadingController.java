@@ -1,7 +1,6 @@
 package org.achal.controller;
 
 
-import org.achal.entity.VehicleDetail;
 import org.achal.service.VehicleDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +20,7 @@ public class ReadingController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public VehicleDetail create(@RequestBody VehicleDetail vd) {
-        return vehicleDetailService.create(vd);
+    public String create(@RequestBody String body) {
+        return vehicleDetailService.create(body);
     }
 }

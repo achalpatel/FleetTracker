@@ -30,7 +30,7 @@ public class Vehicle {
     float redLineRpm;
     float maxFuelVolume;
 
-//    @JsonIgnore
+    @JsonIgnore
     @OneToMany(mappedBy = "vin")
     List<VehicleDetail> vehicleDetailList;
 
@@ -117,16 +117,4 @@ public class Vehicle {
     public void setVehicleDetailList(List<VehicleDetail> vehicleDetailList) {
         this.vehicleDetailList = vehicleDetailList;
     }
-//
-//    @Override
-//    public String toString() {
-//        return "{  vin:" + vin +
-//                ", lastServiceDate:" + lastServiceDate +
-//                ", make:" + make +
-//                ", model:" + model +
-//                ", year:" + year +
-//                ", redLineRpm:" + redLineRpm +
-//                ", maxFuelVolume:" + maxFuelVolume +
-//                "}";
-//    }
 }
