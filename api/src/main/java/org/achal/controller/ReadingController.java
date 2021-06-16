@@ -1,6 +1,10 @@
 package org.achal.controller;
 
 
+import org.achal.entity.VehicleDetail;
+import org.achal.exception.BadRequestException;
+import org.achal.helper.Deserialize;
+import org.achal.service.AlertService;
 import org.achal.service.VehicleDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +18,24 @@ public class ReadingController {
     @Autowired
     private VehicleDetailService vehicleDetailService;
 
+    @Autowired
+    private AlertService alertService;
+
+    @Autowired
+    private Deserialize deserializeHelper;
+
     @RequestMapping(method = RequestMethod.GET, value = "{id}")
     public String findOne(@PathVariable("id") String id) {
         return vehicleDetailService.findOne(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public String create(@RequestBody String body) {
-        return vehicleDetailService.create(body);
+    public VehicleDetail create(@RequestBody String body) {
+        VehicleDetail vehicleDetail = deserializeHelper.getVehicleDetail(body);
+        if (vehicleDetail == null) {
+            throw new BadRequestException("Vehicle NOT FOUND");
+        }
+        alertService.addFacts(vehicleDetail);
+        return vehicleDetailService.create(vehicleDetail);
     }
 }

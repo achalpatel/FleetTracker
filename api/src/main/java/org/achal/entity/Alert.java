@@ -1,17 +1,59 @@
 package org.achal.entity;
 
 import javax.persistence.*;
+import java.util.UUID;
 
-
+@Entity
 public class Alert {
     @Id
-    String alertId;
+    String id;
 
     @ManyToOne
-    Vehicle vehicle;
+    VehicleDetail vehicleDetail;
 
-    @ManyToOne
-    Rule rule;
+    String ruleName;
 
+    String ruleDescription;
 
+    public Alert() {
+        id = UUID.randomUUID().toString();
+    }
+
+    public Alert(VehicleDetail vehicleDetail, String ruleName, String ruleDescription) {
+        this.vehicleDetail = vehicleDetail;
+        this.ruleName = ruleName;
+        this.ruleDescription = ruleDescription;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public VehicleDetail getVehicleDetail() {
+        return vehicleDetail;
+    }
+
+    public void setVehicleDetail(VehicleDetail vehicleDetail) {
+        this.vehicleDetail = vehicleDetail;
+    }
+
+    public String getRuleName() {
+        return ruleName;
+    }
+
+    public void setRuleName(String ruleName) {
+        this.ruleName = ruleName;
+    }
+
+    public String getRuleDescription() {
+        return ruleDescription;
+    }
+
+    public void setRuleDescription(String ruleDescription) {
+        this.ruleDescription = ruleDescription;
+    }
 }
