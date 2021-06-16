@@ -3,6 +3,7 @@ package org.achal.service;
 import org.achal.entity.Alert;
 import org.achal.entity.VehicleDetail;
 import org.achal.repository.AlertRepo;
+import org.achal.repository.VehicleDetailRepo;
 import org.jeasy.rules.api.*;
 import org.jeasy.rules.core.DefaultRulesEngine;
 import org.jeasy.rules.core.RuleBuilder;
@@ -16,11 +17,14 @@ public class AlertService {
     @Autowired
     AlertRepo alertRepo;
 
+    @Autowired
+    VehicleDetailRepo vehicleDetailRepo;
+
     public void addFacts(VehicleDetail vehicleDetail){
 //        Fact variables : engineRpm, readlineRpm, fuelVolume, maxFuelVolume, tire pressure, engineCoolantLow, checkEngineLightOn
         Facts facts = new Facts();
         facts.add(new Fact<Float>("engineRpm", vehicleDetail.getEngineRpm()));
-        facts.add(new Fact<Float>("readlineRpm", vehicleDetail.getVin().getRedLineRpm()));
+        facts.add(new Fact<Float>("readlineRpm", vehicleDetail.getVin().getRedlineRpm()));
         facts.add(new Fact<Float>("fuelVolume", vehicleDetail.getFuelVolume()));
         facts.add(new Fact<Float>("maxFuelVolume", vehicleDetail.getVin().getMaxFuelVolume()));
         facts.add(new Fact<Float>("frontLeft", vehicleDetail.getTires().getFrontLeft()));
@@ -41,21 +45,25 @@ public class AlertService {
     public Rule buildRule(VehicleDetail vd){
         String rpmRuleName = "rpmRule";
         String rpmRuleDescription = "Engine rpm is greater than readlineRpm";
+        String rpmRulePriority = "HIGH";
         return new RuleBuilder()
                 .name(rpmRuleName)
                 .description(rpmRuleDescription)
                 .when(facts -> (float)facts.get("engineRpm")>(float)facts.get("readlineRpm"))
-                .then(facts -> createAlert(vd, rpmRuleName, rpmRuleDescription))
+                .then(facts -> createAlert(vd, rpmRuleName, rpmRuleDescription, rpmRulePriority))
                 .build();
     }
 
     @Transactional
-    public void createAlert(VehicleDetail vd, String ruleName, String ruleDescription){
+    public void createAlert(VehicleDetail vd, String ruleName, String ruleDescription, String rulePriority){
         Alert alert = new Alert();
         alert.setRuleName(ruleName);
         alert.setRuleDescription(ruleDescription);
         alert.setVehicleDetail(vd);
+        alert.setPriority(rulePriority);
         alertRepo.save(alert);
+        vd.getAlertList().add(alert);
+        vehicleDetailRepo.save(vd);
     }
 
 }

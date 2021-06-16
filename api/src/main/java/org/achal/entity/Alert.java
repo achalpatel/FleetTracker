@@ -15,14 +15,17 @@ public class Alert {
 
     String ruleDescription;
 
+    String priority;
+
     public Alert() {
         id = UUID.randomUUID().toString();
     }
 
-    public Alert(VehicleDetail vehicleDetail, String ruleName, String ruleDescription) {
+    public Alert(VehicleDetail vehicleDetail, String ruleName, String ruleDescription, String priority) {
         this.vehicleDetail = vehicleDetail;
         this.ruleName = ruleName;
         this.ruleDescription = ruleDescription;
+        this.priority = priority;
     }
 
     public String getId() {
@@ -55,5 +58,13 @@ public class Alert {
 
     public void setRuleDescription(String ruleDescription) {
         this.ruleDescription = ruleDescription;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 }

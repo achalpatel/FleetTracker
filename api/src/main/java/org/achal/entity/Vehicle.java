@@ -1,7 +1,6 @@
 package org.achal.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -11,6 +10,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,29 +27,24 @@ public class Vehicle {
     String make;
     String model;
     int year;
-    float redLineRpm;
+    float redlineRpm;
     float maxFuelVolume;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "vin")
+    @OneToMany(mappedBy = "vin", fetch = FetchType.LAZY)
     List<VehicleDetail> vehicleDetailList;
 
-    @JsonCreator
-    public Vehicle(String vin){
-        this.vin = vin;
-    }
-
-
     public Vehicle() {
+        vehicleDetailList = new ArrayList<>();
     }
 
-    public Vehicle(String vin, LocalDateTime lastServiceDate, String make, String model, int year, float redLineRpm, float maxFuelVolume, List<VehicleDetail> vehicleDetailList) {
+    public Vehicle(String vin, LocalDateTime lastServiceDate, String make, String model, int year, float redlineRpm, float maxFuelVolume, List<VehicleDetail> vehicleDetailList) {
         this.vin = vin;
         this.lastServiceDate = lastServiceDate;
         this.make = make;
         this.model = model;
         this.year = year;
-        this.redLineRpm = redLineRpm;
+        this.redlineRpm = redlineRpm;
         this.maxFuelVolume = maxFuelVolume;
         this.vehicleDetailList = vehicleDetailList;
     }
@@ -94,12 +89,12 @@ public class Vehicle {
         this.year = year;
     }
 
-    public float getRedLineRpm() {
-        return redLineRpm;
+    public float getRedlineRpm() {
+        return redlineRpm;
     }
 
-    public void setRedLineRpm(float redLineRpm) {
-        this.redLineRpm = redLineRpm;
+    public void setRedlineRpm(float redLineRpm) {
+        this.redlineRpm = redLineRpm;
     }
 
     public float getMaxFuelVolume() {

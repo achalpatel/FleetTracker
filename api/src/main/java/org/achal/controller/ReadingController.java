@@ -31,11 +31,12 @@ public class ReadingController {
 
     @RequestMapping(method = RequestMethod.POST)
     public VehicleDetail create(@RequestBody String body) {
-        VehicleDetail vehicleDetail = deserializeHelper.getVehicleDetail(body);
-        if (vehicleDetail == null) {
-            throw new BadRequestException("Vehicle NOT FOUND");
-        }
-        alertService.addFacts(vehicleDetail);
-        return vehicleDetailService.create(vehicleDetail);
+//        VehicleDetail vehicleDetail = deserializeHelper.getVehicleDetail(body);
+//        if (vehicleDetail == null) {
+//            throw new BadRequestException("Vehicle NOT FOUND");
+//        }
+        VehicleDetail responseObj = vehicleDetailService.create(body);
+        alertService.addFacts(responseObj);
+        return responseObj;
     }
 }

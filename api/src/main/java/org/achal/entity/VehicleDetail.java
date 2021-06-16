@@ -10,6 +10,8 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -30,6 +32,10 @@ public class VehicleDetail {
     @OneToOne(cascade = CascadeType.PERSIST)
     Tire tires;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "vehicleDetail", fetch = FetchType.LAZY)
+    List<Alert> alertList;
+
     String latitude;
     String longitude;
     float fuelVolume;
@@ -43,13 +49,15 @@ public class VehicleDetail {
 
     public VehicleDetail() {
         id = UUID.randomUUID().toString();
+        alertList = new ArrayList<>();
     }
 
 
-    public VehicleDetail(Vehicle vin, LocalDateTime timestamp, Tire tires, String latitude, String longitude, float fuelVolume, float speed, float engineHp, boolean checkEngineLightOn, boolean engineCoolantLow, boolean cruiseControlOn, float engineRpm) {
+    public VehicleDetail(Vehicle vin, LocalDateTime timestamp, Tire tires, List<Alert> alertList, String latitude, String longitude, float fuelVolume, float speed, float engineHp, boolean checkEngineLightOn, boolean engineCoolantLow, boolean cruiseControlOn, float engineRpm) {
         this.vin = vin;
         this.timestamp = timestamp;
         this.tires = tires;
+        this.alertList = alertList;
         this.latitude = latitude;
         this.longitude = longitude;
         this.fuelVolume = fuelVolume;
@@ -60,7 +68,6 @@ public class VehicleDetail {
         this.cruiseControlOn = cruiseControlOn;
         this.engineRpm = engineRpm;
     }
-
 
     public String getId() {
         return id;
@@ -164,5 +171,13 @@ public class VehicleDetail {
 
     public void setTires(Tire tire) {
         this.tires = tire;
+    }
+
+    public List<Alert> getAlertList() {
+        return alertList;
+    }
+
+    public void setAlertList(List<Alert> alertList) {
+        this.alertList = alertList;
     }
 }
