@@ -43,26 +43,16 @@ public class VehicleDetailService {
     }
 
     @Transactional
-    public VehicleDetail create(String body) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JSONObject obj = new JSONObject(body);
-        String vin = (String) obj.get("vin");
-        Vehicle vehicle = vehicleService.findOne(vin);
-        if (vehicle == null) {
-            throw new BadRequestException("Vehicle DOES NOT EXIST");
-        }
-        try {
-            VehicleDetail vehicleDetail = objectMapper.readValue(obj.toString(), VehicleDetail.class);
-            vehicleDetail.setVin(vehicle);
-            Tire tire = vehicleDetail.getTires();
-            tireService.create(tire);
-            VehicleDetail response = vehicleDetailRepo.save(vehicleDetail);;
-            vehicle.getVehicleDetailList().add(response);
-            vehicleService.update(vehicle.getVin(), vehicle);
-            return response;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            return null;
-        }
+    public VehicleDetail create(VehicleDetail vehicleDetail) {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        JSONObject obj = new JSONObject(body);
+//        String vin = (String) obj.get("vin");
+        Vehicle vehicle = vehicleDetail.getVin();
+        Tire tire = vehicleDetail.getTires();
+        tireService.create(tire);
+        VehicleDetail response = vehicleDetailRepo.save(vehicleDetail);;
+        vehicle.getVehicleDetailList().add(response);
+        vehicleService.update(vehicle.getVin(), vehicle);
+        return response;
     }
 }

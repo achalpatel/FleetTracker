@@ -18,22 +18,20 @@ public class Deserialize {
     private VehicleService vehicleService;
 
     public VehicleDetail getVehicleDetail(String body) {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        JSONObject obj = new JSONObject(body);
-//        String vin = (String) obj.get("vin");
-//        System.out.println("vin:"+vin);
-//        Vehicle vehicle = vehicleService.findOne(vin);
-//        if (vehicle == null) {
-//            return null;
-//        }
-//        try {
-//            VehicleDetail vehicleDetail = objectMapper.readValue(obj.toString(), VehicleDetail.class);
-//            vehicleDetail.setVin(vehicle);
-//            return vehicleDetail;
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-        return null;
+        ObjectMapper objectMapper = new ObjectMapper();
+        JSONObject obj = new JSONObject(body);
+        String vin = (String) obj.get("vin");
+        Vehicle vehicle = vehicleService.findOne(vin);
+        if (vehicle == null) {
+            return null;
+        }
+        try {
+            VehicleDetail vehicleDetail = objectMapper.readValue(obj.toString(), VehicleDetail.class);
+            vehicleDetail.setVin(vehicle);
+            return vehicleDetail;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
