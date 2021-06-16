@@ -9,6 +9,7 @@ import org.achal.exception.BadRequestException;
 import org.achal.repository.VehicleDetailRepo;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +26,7 @@ public class VehicleDetailService {
     @Autowired
     private TireService tireService;
 
+    @Qualifier("vehicleServiceImpl")
     @Autowired
     private VehicleService vehicleService;
 
