@@ -14,7 +14,7 @@ import java.util.List;
 public class MyRules {
 
     @Autowired
-    AlertService alertService;
+    private AlertService alertService;
 
     public void runRuleBuilder(VehicleDetail vehicleDetail) {
         Facts facts = addFacts(vehicleDetail);

@@ -5,9 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.achal.entity.Tire;
 import org.achal.entity.Vehicle;
 import org.achal.entity.VehicleDetail;
-import org.achal.exception.BadRequestException;
 import org.achal.repository.VehicleDetailRepo;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,7 +16,7 @@ import java.util.Optional;
 
 @Service
 public class VehicleDetailService {
-    static ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private VehicleDetailRepo vehicleDetailRepo;
@@ -46,9 +44,6 @@ public class VehicleDetailService {
 
     @Transactional
     public VehicleDetail create(VehicleDetail vehicleDetail) {
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        JSONObject obj = new JSONObject(body);
-//        String vin = (String) obj.get("vin");
         Vehicle vehicle = vehicleDetail.getVin();
         Tire tire = vehicleDetail.getTires();
         tireService.create(tire);

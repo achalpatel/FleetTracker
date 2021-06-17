@@ -7,12 +7,12 @@ import java.util.UUID;
 @Entity
 public class Tire {
     @Id
-    String id;
+    private String id;
 
-    float frontLeft;
-    float frontRight;
-    float rearLeft;
-    float rearRight;
+    private float frontLeft;
+    private float frontRight;
+    private float rearLeft;
+    private float rearRight;
 
     public Tire() {
         id = UUID.randomUUID().toString();

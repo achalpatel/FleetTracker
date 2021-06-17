@@ -17,26 +17,26 @@ import java.util.List;
 public class Vehicle {
     @Id
     @Column(columnDefinition = "VARCHAR(36)")
-    String vin;
+    private String vin;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    LocalDateTime lastServiceDate;
+    private LocalDateTime lastServiceDate;
 
-    String make;
-    String model;
-    int year;
-    float redlineRpm;
-    float maxFuelVolume;
+    private String make;
+    private String model;
+    private int year;
+    private float redlineRpm;
+    private float maxFuelVolume;
 
     @JsonIgnore
     @OneToMany(mappedBy = "vin", fetch = FetchType.LAZY)
-    List<VehicleDetail> vehicleDetailList;
+    private List<VehicleDetail> vehicleDetailList;
 
     @JsonIgnore
     @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY)
-    List<Alert> alertList;
+    private List<Alert> alertList;
 
     public Vehicle() {
         vehicleDetailList = new ArrayList<>();

@@ -22,7 +22,7 @@ public class ReadingController {
     private Deserialize deserializeHelper;
 
     @Autowired
-    MyRules myRules;
+    private MyRules myRules;
 
     @RequestMapping(method = RequestMethod.GET, value = "{id}")
     public String findOne(@PathVariable("id") String id) {

@@ -6,19 +6,19 @@ import java.util.UUID;
 @Entity
 public class Alert {
     @Id
-    String id;
+    private String id;
 
     @ManyToOne
-    VehicleDetail vehicleDetail;
+    private VehicleDetail vehicleDetail;
 
     @ManyToOne
-    Vehicle vehicle;
+    private Vehicle vehicle;
 
-    String ruleName;
+    private String ruleName;
 
-    String ruleDescription;
+    private String ruleDescription;
 
-    String priority;
+    private String priority;
 
     public Alert() {
         id = UUID.randomUUID().toString();

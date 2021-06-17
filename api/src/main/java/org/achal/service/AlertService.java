@@ -17,13 +17,13 @@ import java.util.Optional;
 public class AlertService {
 
     @Autowired
-    AlertRepo alertRepo;
+    private AlertRepo alertRepo;
 
     @Autowired
-    VehicleDetailRepo vehicleDetailRepo;
+    private VehicleDetailRepo vehicleDetailRepo;
 
     @Autowired
-    VehicleRepository vehicleRepository;
+    private VehicleRepository vehicleRepository;
 
     @Transactional
     public void createAlert(VehicleDetail vd, String ruleName, String ruleDescription, String rulePriority) {

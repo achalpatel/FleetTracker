@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class TireService {
     @Autowired
-    TireRepo tireRepo;
+    private TireRepo tireRepo;
 
     @Transactional
     public Tire create(Tire tire){

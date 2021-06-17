@@ -18,40 +18,38 @@ import java.util.UUID;
 public class VehicleDetail {
 
     @Id
-    String id;
+    private String id;
 
     @JsonIgnore
     @ManyToOne(fetch=FetchType.LAZY)
-    Vehicle vin;
+    private Vehicle vin;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    LocalDateTime timestamp;
+    private LocalDateTime timestamp;
 
     @OneToOne(cascade = CascadeType.PERSIST)
-    Tire tires;
+    private Tire tires;
 
     @JsonIgnore
     @OneToMany(mappedBy = "vehicleDetail", fetch = FetchType.LAZY)
-    List<Alert> alertList;
+    private List<Alert> alertList;
 
-    String latitude;
-    String longitude;
-    float fuelVolume;
-    float speed;
-    float engineHp;
-    boolean checkEngineLightOn;
-    boolean engineCoolantLow;
-    boolean cruiseControlOn;
-    float engineRpm;
-
+    private String latitude;
+    private String longitude;
+    private float fuelVolume;
+    private float speed;
+    private float engineHp;
+    private boolean checkEngineLightOn;
+    private boolean engineCoolantLow;
+    private boolean cruiseControlOn;
+    private float engineRpm;
 
     public VehicleDetail() {
         id = UUID.randomUUID().toString();
         alertList = new ArrayList<>();
     }
-
 
     public VehicleDetail(Vehicle vin, LocalDateTime timestamp, Tire tires, List<Alert> alertList, String latitude, String longitude, float fuelVolume, float speed, float engineHp, boolean checkEngineLightOn, boolean engineCoolantLow, boolean cruiseControlOn, float engineRpm) {
         this.vin = vin;
