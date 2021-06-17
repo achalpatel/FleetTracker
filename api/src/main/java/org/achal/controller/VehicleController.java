@@ -29,7 +29,7 @@ public class VehicleController {
 
     @RequestMapping(method = RequestMethod.POST)
     public Vehicle create(@RequestBody Vehicle vehicle) {
-        return vehicle;
+        return vehicleService.create(vehicle);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
