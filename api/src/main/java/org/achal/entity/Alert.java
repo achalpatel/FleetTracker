@@ -11,6 +11,9 @@ public class Alert {
     @ManyToOne
     VehicleDetail vehicleDetail;
 
+    @ManyToOne
+    Vehicle vehicle;
+
     String ruleName;
 
     String ruleDescription;
@@ -21,8 +24,9 @@ public class Alert {
         id = UUID.randomUUID().toString();
     }
 
-    public Alert(VehicleDetail vehicleDetail, String ruleName, String ruleDescription, String priority) {
+    public Alert(VehicleDetail vehicleDetail, Vehicle vehicle, String ruleName, String ruleDescription, String priority) {
         this.vehicleDetail = vehicleDetail;
+        this.vehicle = vehicle;
         this.ruleName = ruleName;
         this.ruleDescription = ruleDescription;
         this.priority = priority;
@@ -66,5 +70,13 @@ public class Alert {
 
     public void setPriority(String priority) {
         this.priority = priority;
+    }
+
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
     }
 }

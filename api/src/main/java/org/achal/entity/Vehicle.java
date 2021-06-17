@@ -34,11 +34,15 @@ public class Vehicle {
     @OneToMany(mappedBy = "vin", fetch = FetchType.LAZY)
     List<VehicleDetail> vehicleDetailList;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY)
+    List<Alert> alertList;
+
     public Vehicle() {
         vehicleDetailList = new ArrayList<>();
     }
 
-    public Vehicle(String vin, LocalDateTime lastServiceDate, String make, String model, int year, float redlineRpm, float maxFuelVolume, List<VehicleDetail> vehicleDetailList) {
+    public Vehicle(String vin, LocalDateTime lastServiceDate, String make, String model, int year, float redlineRpm, float maxFuelVolume, List<VehicleDetail> vehicleDetailList, List<Alert> alertList) {
         this.vin = vin;
         this.lastServiceDate = lastServiceDate;
         this.make = make;
@@ -47,6 +51,7 @@ public class Vehicle {
         this.redlineRpm = redlineRpm;
         this.maxFuelVolume = maxFuelVolume;
         this.vehicleDetailList = vehicleDetailList;
+        this.alertList = alertList;
     }
 
     public String getVin() {
@@ -111,5 +116,13 @@ public class Vehicle {
 
     public void setVehicleDetailList(List<VehicleDetail> vehicleDetailList) {
         this.vehicleDetailList = vehicleDetailList;
+    }
+
+    public List<Alert> getAlertList() {
+        return alertList;
+    }
+
+    public void setAlertList(List<Alert> alertList) {
+        this.alertList = alertList;
     }
 }

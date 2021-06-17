@@ -8,17 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class MyRules {
 
     @Autowired
     AlertService alertService;
-
-    Map<String, Object> map = new HashMap<>();
 
     public void runRuleBuilder(VehicleDetail vehicleDetail) {
         Facts facts = addFacts(vehicleDetail);
@@ -31,19 +27,6 @@ public class MyRules {
 
 
     public Facts addFacts(VehicleDetail vehicleDetail) {
-//        Fact variables : engineRpm, readlineRpm, fuelVolume, maxFuelVolume, tire pressure, engineCoolantLow, checkEngineLightOn
-//        System.out.println("Vehicle : "+vehicleDetail.getVin().getVin());
-        map.put("engineRpm", vehicleDetail.getEngineRpm());
-        map.put("readlineRpm", vehicleDetail.getVin().getRedlineRpm());
-        map.put("fuelVolume", vehicleDetail.getFuelVolume());
-        map.put("maxFuelVolume", vehicleDetail.getVin().getMaxFuelVolume());
-        map.put("frontLeft", vehicleDetail.getTires().getFrontLeft());
-        map.put("frontRight", vehicleDetail.getTires().getFrontRight());
-        map.put("rearLeft", vehicleDetail.getTires().getRearLeft());
-        map.put("rearRight", vehicleDetail.getTires().getRearRight());
-        map.put("engineCoolantLow", vehicleDetail.isEngineCoolantLow());
-        map.put("checkEngineLightOn", vehicleDetail.isCheckEngineLightOn());
-
         Facts facts = new Facts();
         facts.add(new Fact<Float>("engineRpm", vehicleDetail.getEngineRpm()));
         facts.add(new Fact<Float>("readlineRpm", vehicleDetail.getVin().getRedlineRpm()));
