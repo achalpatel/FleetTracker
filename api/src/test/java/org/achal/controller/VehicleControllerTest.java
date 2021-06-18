@@ -37,6 +37,8 @@ public class VehicleControllerTest {
     @Autowired
     private VehicleRepository vehicleRepository;
 
+    ObjectMapper mapper = new ObjectMapper();
+
     @Before
     public void setup() {
         Vehicle vehicle1 = new Vehicle("v1aaaa", LocalDateTime.now(), "make1", "model1", 2021, 98, 12, null, null);
@@ -77,7 +79,6 @@ public class VehicleControllerTest {
     @Test
     public void create() throws Exception {
         Vehicle vehicle3 = new Vehicle("v3aaaa", LocalDateTime.now(), "make3", "model3", 2021, 98, 12, null, null);
-        ObjectMapper mapper = new ObjectMapper();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/vehicles")
                 .content(mapper.writeValueAsString(vehicle3))
@@ -96,7 +97,6 @@ public class VehicleControllerTest {
     @Test
     public void create404() throws Exception {
         Vehicle vehicle2 = new Vehicle("v2aaaa", LocalDateTime.now(), "make2", "model2", 2021, 98, 12, null, null);
-        ObjectMapper mapper = new ObjectMapper();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/vehicles")
                 .content(mapper.writeValueAsString(vehicle2))
@@ -117,7 +117,7 @@ public class VehicleControllerTest {
         List<Vehicle> vehicleList = new ArrayList<>();
         vehicleList.add(vehicle3);
         vehicleList.add(vehicle4);
-        ObjectMapper mapper = new ObjectMapper();
+
         mockMvc.perform(MockMvcRequestBuilders.put("/vehicles")
                 .content(mapper.writeValueAsString(vehicleList))
                 .contentType(MediaType.APPLICATION_JSON))
@@ -134,10 +134,56 @@ public class VehicleControllerTest {
     }
 
     @Test
-    public void update() {
+    public void update() throws Exception{
+        Vehicle vehicle1 = new Vehicle("v1aaaa", LocalDateTime.now(), "makeupdated", "model1", 2021, 98, 12, null, null);
+        mockMvc.perform(MockMvcRequestBuilders.put("/vehicles/v1aaaa")
+                .content(mapper.writeValueAsString(vehicle1))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status()
+                        .isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.vin", Matchers.notNullValue()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.make", Matchers.is("makeupdated")));
+
     }
 
     @Test
-    public void delete() {
+    public void update400() throws Exception{
+        Vehicle vehicle1 = new Vehicle("v5aaaa", LocalDateTime.now(), "makeupdated", "model1", 2021, 98, 12, null, null);
+        mockMvc.perform(MockMvcRequestBuilders.put("/vehicles/v1aaaa")
+                .content(mapper.writeValueAsString(vehicle1))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status()
+                        .isBadRequest());
+
     }
+
+    @Test
+    public void update404() throws Exception{
+        Vehicle vehicle1 = new Vehicle("v5aaaa", LocalDateTime.now(), "makeupdated", "model1", 2021, 98, 12, null, null);
+        mockMvc.perform(MockMvcRequestBuilders.put("/vehicles/v5aaaa")
+                .content(mapper.writeValueAsString(vehicle1))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status()
+                        .isNotFound());
+
+    }
+
+    @Test
+    public void delete() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.delete("/vehicles/v1aaaa"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/vehicles"))
+                .andExpect(MockMvcResultMatchers.status()
+                        .isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$", Matchers.hasSize(1)));
+    }
+
+    @Test
+    public void delete404() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/vehicles/v1awdawd"))
+                .andExpect(MockMvcResultMatchers.status()
+                        .isNotFound());
+    }
+
 }
