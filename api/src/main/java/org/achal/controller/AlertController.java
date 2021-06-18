@@ -20,4 +20,9 @@ public class AlertController {
         return alertService.findAlertsByVehicle(id);
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "time/{time}")
+    public List<Alert> findAlertBeforeTime(@PathVariable("time") long time){
+        return alertService.findAlertBeforeTime(time);
+    }
+
 }

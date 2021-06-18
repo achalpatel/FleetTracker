@@ -1,7 +1,6 @@
 package org.achal.service;
 
 import org.achal.entity.Vehicle;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

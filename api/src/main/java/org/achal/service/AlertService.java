@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ public class AlertService {
         alert.setVehicleDetail(vd);
         alert.setPriority(rulePriority);
         alert.setVehicle(vehicle);
+        alert.setTimestamp(LocalDateTime.now());
         alertRepo.save(alert);
         vehicle.getAlertList().add(alert);
         vehicleRepository.save(vehicle);
@@ -47,4 +49,8 @@ public class AlertService {
         return vehicle.map(value -> alertRepo.findAlertsByVehicle(value)).orElse(null);
     }
 
+    @Transactional
+    public List<Alert> findAlertBeforeTime(long time){
+        return alertRepo.findAlertsByTimestampAfter(LocalDateTime.now().minusSeconds(time));
+    }
 }

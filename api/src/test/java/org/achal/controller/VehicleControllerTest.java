@@ -21,9 +21,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import static org.junit.Assert.*;
 
 
 @RunWith(SpringRunner.class)
