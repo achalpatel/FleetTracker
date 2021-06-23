@@ -7,6 +7,7 @@ import org.achal.helper.Deserialize;
 import org.achal.service.MyRules;
 import org.achal.service.VehicleDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -24,7 +25,7 @@ public class ReadingController {
     @Autowired
     private MyRules myRules;
 
-    @RequestMapping(method = RequestMethod.GET, value = "{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public String findOne(@PathVariable("id") String id) {
         return vehicleDetailService.findOne(id);
     }
